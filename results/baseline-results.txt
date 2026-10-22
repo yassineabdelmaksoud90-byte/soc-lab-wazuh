@@ -1,0 +1,81 @@
+files read: 12
+
+T1082  sysmon=5  alarms=4  -> CHECK NAMES
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+
+T1083  sysmon=6  alarms=4  -> CHECK NAMES
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+
+T1057  sysmon=6  alarms=4  -> CHECK NAMES
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+
+T1016  sysmon=9  alarms=12  -> CHECK NAMES
+     6 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92036 (level 3): A C:\\Windows\\System32\\net.exe binary was started by a Windows cmd shell
+     2 x rule 92031 (level 3): Discovery activity executed
+
+T1018  sysmon=29  alarms=60  -> CHECK NAMES
+    54 x rule 92217 (level 6): Executable dropped in Windows root folder
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92035 (level 3): A net.exe domain discovery command was executed
+     2 x rule 92034 (level 3): Discovery activity spawned via cmd shell execution
+
+T1033  sysmon=28  alarms=50  -> DETECTED
+    36 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+     8 x rule 92022 (level 3): Gathered user information from Remote Desktop Service sessions
+     2 x rule 60642 (level 3): Software protection service scheduled successfully.
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+
+T1087.001  sysmon=12  alarms=16  -> DETECTED
+     6 x rule 92036 (level 3): A C:\\Windows\\System32\\net.exe binary was started by a Windows cmd shell
+     6 x rule 92031 (level 3): Discovery activity executed
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+
+T1059.001  sysmon=6  alarms=118  -> DETECTED
+    88 x rule 91837 (level 4): Powershell executed "Get-Content -Stream or Invoke-Expresion". Possible string execution as code
+    12 x rule 91810 (level 10): Powershell script may be executing suspicious code with CreateThread API
+     6 x rule 91809 (level 10): Powershell script may be using Base64 decoding method
+     4 x rule 92213 (level 15): Executable file dropped in folder commonly used by malware
+
+T1059.003  sysmon=9  alarms=12  -> DETECTED
+     8 x rule 92213 (level 15): Executable file dropped in folder commonly used by malware
+     2 x rule 92203 (level 6): Executable file created by powershell: C:\\AtomicRedTeam\\ExternalPayloads\\T1059.003_script.bat
+     2 x rule 92004 (level 4): Powershell process spawned Windows command shell instance
+
+T1053.005  sysmon=0  alarms=6  -> CHECK NAMES
+     4 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+
+T1547.001  sysmon=4  alarms=6  -> DETECTED
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92041 (level 10): Value added to registry key has Base64-like pattern
+     2 x rule 92302 (level 6): Registry entry to be executed on next logon was modified using command line application reg.exe
+
+T1136.001  sysmon=5  alarms=16  -> DETECTED
+     4 x rule 60109 (level 8): User account enabled or created
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92036 (level 3): A C:\\Windows\\System32\\net.exe binary was started by a Windows cmd shell
+     2 x rule 92040 (level 12): net1.exe executed a user creation command
+
+T1543.003  sysmon=0  alarms=14  -> DETECTED
+     4 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+     4 x rule 61102 (level 5): Windows System error event
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92307 (level 3): Evidence of new service creation found in registry under HKLM\\System\\CurrentControlSet\\Services\\Fax\\ImagePath binary is: C:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe -noexit -c \"write-host 'T1543.003 Test'\"
+
+T1105  sysmon=7  alarms=6  -> CHECK NAMES
+     4 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+
+T1218.011  sysmon=4  alarms=4  -> CHECK NAMES
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92032 (level 3): Suspicious Windows cmd shell execution
+
+T1218.005  sysmon=8  alarms=4  -> CHECK NAMES
+     2 x rule 92052 (level 4): Windows command prompt started by an abnormal process
+     2 x rule 92032 (level 3): Suspicious Windows cmd shell execution
