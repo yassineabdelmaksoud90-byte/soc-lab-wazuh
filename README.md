@@ -1,4 +1,4 @@
-# Open-Source SOC Lab (Wazuh, Sysmon, Suricata)
+﻿# Open-Source SOC Lab (Wazuh, Sysmon, Suricata)
 
 A small SOC built entirely from free tools on one laptop. I attacked my own lab with known techniques, measured what the default setup detected, wrote custom rules for the gaps, and tested again.
 
@@ -70,7 +70,7 @@ All in `rules/local_rules.xml`. Each one matches a Sysmon process-creation event
 | 100100 | 12 | `certutil.exe` with `urlcache` or `verifyctl` | T1105 |
 | 100101 | 12 | `mshta.exe` with `javascript:`, `vbscript:` or a URL | T1218.005 |
 | 100102 | 12 | `rundll32.exe` with `javascript:`, `vbscript:` or `RunHTMLApplication` | T1218.011 |
-| 100103 | 8 | `schtasks.exe` with `/create` | T1053.005 |
+| 100103 | 8 | `schtasks.exe` with `/create` or `-create` | T1053.005 |
 
 I gave the scheduled-task rule a lower level (8) than the others because legitimate software also creates scheduled tasks.
 
@@ -79,7 +79,7 @@ I gave the scheduled-task rule a lower level (8) than the others because legitim
 - **The 3 discovery techniques (T1082, T1083, T1057) are left as logged-only.** `systeminfo`, `dir` and `tasklist` are run by normal users and admins all the time, so a rule per command would drown real alerts in false alarms.
 - I tried a correlation rule (alert when several discovery commands happen within 5 minutes). It rang, but I could not show that it stays quiet for normal use, so I took it out. A backup is in `rules/local_rules_with_discovery_backup.xml`.
 - `dir` is built into the command prompt and starts no process of its own, so Sysmon process events cannot see it.
-- **Not validated on variants.** I wrote each rule after seeing the exact test that was missed. A different certutil option or a renamed binary may get past them. Testing variants is the next step.
+- **Not validated on variants.** I wrote each rule after seeing the exact test that was missed. A different certutil option or a renamed binary may get past them. I started testing variants, see the section below.
 - One test per technique, in a single lab with one Windows machine.
 
 ## Repo layout
@@ -93,10 +93,21 @@ docs/        screenshots
 
 ## Next
 
-- Test variants of each attack against the custom rules
+- Test more variants (other download tools, renamed binaries)
 - Local LLM (Ollama) to explain and triage alerts, and test it against prompt injection through log fields
 - Add Active Directory and a Kali machine for network attacks
 
 ## Screenshot
 
 ![Wazuh dashboard](docs/dashboard-1.png)
+
+
+## Variant testing
+
+To check that the rules don't only match the exact tests I wrote them for, I ran slightly different versions of some attacks. The original attacks served as a control: they still fired their rules the same day, so the misses are real and not a broken pipeline.
+
+| Variant | Result |
+|---|---|
+| `schtasks -create` (dash instead of slash) | **Missed** by rule 100103, which only looked for `/create`. Fixed by accepting `/` or `-`, retested: caught. |
+| `certutil.exe` copied to another name | Could not be tested: the renamed copy would not run in this lab. |
+| PowerShell download instead of certutil | Not tested yet. Likely to be missed; a rule would be noisy because PowerShell downloads files in normal use. |
