@@ -1,4 +1,4 @@
-﻿# Open-Source SOC Lab (Wazuh, Sysmon, Suricata)
+# Open-Source SOC Lab (Wazuh, Sysmon, Suricata)
 
 A small SOC built entirely from free tools on one laptop. I attacked my own lab with known techniques, measured what the default setup detected, wrote custom rules for the gaps, and tested again.
 
@@ -87,7 +87,7 @@ I gave the scheduled-task rule a lower level (8) than the others because legitim
 ```
 rules/       custom Wazuh rules
 scripts/     run-all.ps1 (attack runner), check.py (result checker)
-results/     baseline-results.txt
+results/     baseline-results.txt (raw checker output before my rules; "CHECK NAMES" means I reviewed the alarms by hand), results-final.csv (test timings)
 docs/        screenshots
 ```
 
